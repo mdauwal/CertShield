@@ -71,6 +71,116 @@ $ mau deploy
 
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
+## Docker Deployment
+
+This application can be containerized using Docker for consistent development, testing, and production environments.
+
+### Prerequisites
+
+- Docker installed on your system
+- Environment variables configured (see Environment Variables section below)
+
+### Build the Docker Image
+
+```bash
+# Build the image
+docker build -t stark-cert-backend .
+
+# Build with a specific tag
+docker build -t stark-cert-backend:latest .
+```
+
+### Run the Docker Container
+
+```bash
+# Run with default settings (port 3000)
+docker run -p 3000:3000 stark-cert-backend
+
+# Run with custom port mapping
+docker run -p 8080:3000 stark-cert-backend
+
+# Run with environment variables
+docker run -p 3000:3000 \
+  -e PORT=3000 \
+  -e JWT_SECRET=your-secret-key \
+  -e NODE_ENV=production \
+  stark-cert-backend
+
+# Run in detached mode
+docker run -d -p 3000:3000 --name stark-cert-backend stark-cert-backend
+```
+
+### Environment Variables
+
+Create a `.env` file in the project root with the following variables:
+
+```env
+# Application Configuration
+PORT=3000
+NODE_ENV=production
+
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-here
+
+# Database Configuration (if using TypeORM)
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=password
+DB_DATABASE=stark_cert_db
+
+# Optional: Logging
+LOG_LEVEL=info
+```
+
+### Docker Compose (Optional)
+
+For easier management, you can create a `docker-compose.yml` file:
+
+```yaml
+version: '3.8'
+services:
+  stark-cert-backend:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+      - JWT_SECRET=your-secret-key
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'node', 'healthcheck.js']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+```
+
+Then run with:
+
+```bash
+docker-compose up -d
+```
+
+### Useful Docker Commands
+
+```bash
+# View running containers
+docker ps
+
+# View logs
+docker logs stark-cert-backend
+
+# Stop container
+docker stop stark-cert-backend
+
+# Remove container
+docker rm stark-cert-backend
+
+# Remove image
+docker rmi stark-cert-backend
+```
+
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:

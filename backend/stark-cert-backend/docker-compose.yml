@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  stark-cert-backend:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - NODE_ENV=production
+      # Database configuration (uncomment if using PostgreSQL)
+      # - DB_HOST=postgres
+      # - DB_PORT=5432
+      # - DB_USERNAME=postgres
+      # - DB_PASSWORD=password
+      # - DB_DATABASE=stark_cert_db
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'node', 'healthcheck.js']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Uncomment the following lines if you want to use a PostgreSQL database
+    # depends_on:
+    #   - postgres
+    # volumes:
+    #   - ./logs:/app/logs
+
+  # Uncomment the following service if you need a PostgreSQL database
+  # postgres:
+  #   image: postgres:15-alpine
+  #   environment:
+  #     - POSTGRES_DB=stark_cert_db
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=password
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+# Uncomment if using PostgreSQL
+# volumes:
+#   postgres_data:
