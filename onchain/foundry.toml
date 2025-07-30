@@ -1,0 +1,6 @@
+[profile.default]
+sierra = true
+casm = true
+
+[dependencies]
+starknet = "2.8.2"

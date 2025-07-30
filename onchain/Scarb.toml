@@ -1,0 +1,22 @@
+[package]
+name = "starkcert"
+version = "0.1.0"
+edition = "2023_11"
+
+[dependencies]
+starknet = "2.8.2"
+openzeppelin = { git = "https://github.com/OpenZeppelin/cairo-contracts.git", tag = "v0.15.0" }
+
+[dev-dependencies]
+snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry", tag = "v0.25.0" }
+
+[[target.starknet-contract]]
+sierra = true
+casm = true
+
+[tool.snforge]
+exit_first = true
+
+[scripts]
+test = "snforge test"
+build = "scarb build"
