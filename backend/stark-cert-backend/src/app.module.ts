@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { Auth } from './auth/entities/auth.entity';
 import { GatewayModule } from './modules/gateway/gateway.module';
+import { CertificateModule } from './modules/certificates/certificate.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { GatewayModule } from './modules/gateway/gateway.module';
     }),
     AuthModule,
     GatewayModule,
+    CertificateModule,
   ],
   controllers: [AppController],
   providers: [AppService],
