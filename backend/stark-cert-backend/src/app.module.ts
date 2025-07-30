@@ -4,11 +4,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { Auth } from './auth/entities/auth.entity';
+import { IntegrationsModule } from './modules/integrations/integrations.module';
+
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
+    IntegrationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
