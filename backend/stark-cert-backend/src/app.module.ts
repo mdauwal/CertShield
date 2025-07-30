@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { Auth } from './auth/entities/auth.entity';
 import { GatewayModule } from './modules/gateway/gateway.module';
 import { CertificateModule } from './modules/certificates/certificate.module';
+import { IntegrationsModule } from './modules/integrations/integrations.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { CertificateModule } from './modules/certificates/certificate.module';
     AuthModule,
     GatewayModule,
     CertificateModule,
+    IntegrationsModule,
+    StorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
